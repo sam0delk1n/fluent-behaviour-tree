@@ -35,7 +35,7 @@
     bool caught { false };               \
     try {                                \
         statement;                       \
-    } catch ( const except_c& cEx ) {    \
+    } catch ( const except_c& ) {        \
         caught = true;                   \
     }                                    \
     SMD_HASSERT( caught );               \
@@ -66,7 +66,7 @@ using nodePtr_t      = shared_ptr< node_i< timeData_t > >;
 
 //==============================================================================================================================
 void check_fbtActionNode( void ) {
-    constexpr timeData_t cTimeDelta { 0.1 };
+    constexpr timeData_t cTimeDelta { 0.1f };
 
     unsigned int invokeCount { 0 };
 
@@ -105,7 +105,7 @@ void check_fbtInverterNode( void ) {
 
         inverterNode_t testObject( "some-action" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -126,7 +126,7 @@ void check_fbtInverterNode( void ) {
 
         inverterNode_t testObject( "some-action" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -147,7 +147,7 @@ void check_fbtInverterNode( void ) {
 
         inverterNode_t testObject( "some-action" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -196,7 +196,7 @@ void check_fbtParallelNode( void ) {
 
         parallelNode_t testObject( "some-parallel", 0, 0 );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
         unsigned int    callOrder  { 0 };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
@@ -230,7 +230,7 @@ void check_fbtParallelNode( void ) {
 
         parallelNode_t testObject( "some-parallel", 2, 2 );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -267,7 +267,7 @@ void check_fbtParallelNode( void ) {
 
         parallelNode_t testObject( "some-parallel", 2, 2 );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -303,7 +303,7 @@ void check_fbtParallelNode( void ) {
 
         parallelNode_t testObject( "some-parallel", 2, 2 );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -341,7 +341,7 @@ void check_fbtSelectorNode( void ) {
 
         selectorNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -370,7 +370,7 @@ void check_fbtSelectorNode( void ) {
 
         selectorNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -399,7 +399,7 @@ void check_fbtSelectorNode( void ) {
 
         selectorNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -428,7 +428,7 @@ void check_fbtSelectorNode( void ) {
 
         selectorNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -466,7 +466,7 @@ void check_fbtSequenceNode( void ) {
 
         sequenceNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
         unsigned int    callOrder  { 0 };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
@@ -499,7 +499,7 @@ void check_fbtSequenceNode( void ) {
 
         sequenceNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -528,7 +528,7 @@ void check_fbtSequenceNode( void ) {
 
         sequenceNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;
@@ -557,7 +557,7 @@ void check_fbtSequenceNode( void ) {
 
         sequenceNode_t testObject( "some-selector" );
 
-        constexpr timeData_t cTimeDelta { 0.1 };
+        constexpr timeData_t cTimeDelta { 0.1f };
 
         nodePtr_t pMock1( new actionNode_t( "mock1", [ & ]( timeData_t ) ->status_t {
             ++mock1Times;

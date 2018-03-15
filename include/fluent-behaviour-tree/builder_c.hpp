@@ -89,7 +89,7 @@ inline auto builder_c< timeData_t >::mDo( const std::string& cName, const functi
 //==============================================================================================================================
 template< typename timeData_t >
 inline auto builder_c< timeData_t >::mCondition( const std::string& cName, const funcBool_t& cFunction ) ->builder_c& {
-    return mDo( cName, [ &cFunction ]( timeData_t timeDelta ) ->status_t {
+    return mDo( cName, [ cFunction ]( timeData_t timeDelta ) ->status_t {
         return cFunction( timeDelta ) ? status_t::SUCCESS : status_t::FAILURE;
     } );
 }
