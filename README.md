@@ -42,14 +42,15 @@ void update( timeData_t time ) {
 ```
 
 ## How to build and run Sanity-check
-### Linux
-Clone the repo.
+### Clone the repo
 ```bash
 git clone https://github.com/sam0delk1n/fluent-behaviour-tree.git
+cd fluent-behaviour-tree
 ```
+
+### Linux
 Create `build/Debug/` and `build/Release/` folders in the repo root folder.
 ```bash
-cd fluent-behaviour-tree
 mkdir build
 cd build
 mkdir Debug Release
@@ -77,7 +78,6 @@ What is Docker please read here: https://docs.docker.com/.
 
 If you don't have required compilers or tools, you can build and run this project with Docker. Before start, please delete `build` folder if you've already create it.
 ```bash
-cd fluent-behaviour-tree
 docker build -t fbt-check .
 ```
 Docker downloads Linux Bionic image with GCC-7/g++-7 and CMake that are already installed. Then Docker builds the project into `/home/app/build/Debug/` and `home/app/build/Release/` (inside the image) respectively and containerizes into the image with name `fbt-check`. Now you can run FBT tests.
@@ -87,13 +87,8 @@ docker run fbt-check /home/app/build/Release/fbt-check
 ```
 
 ### Windows and MS Visual Studio 2017
-Clone the repo.
-```bat
-git clone https://github.com/sam0delk1n/fluent-behaviour-tree.git
-```
 Create `build\msvs\` in the repo root folder.
 ```bat
-cd fluent-behaviour-tree
 mkdir build\msvs
 ```
 Generate `Project.sln`. You need CMake 3.10.2 and MSVS 2017.
@@ -105,13 +100,8 @@ Now you can open `Project.sln` in MSVS and build Debug, Relese, etc.
 The project named `fbt-check` set as StartUp Project to run in Studio. Or run `fbt-check.exe` in the terminal window and you can see the program's output.
 
 ### Windows and MinGW-W64
-Clone the repo.
-```bat
-git clone https://github.com/sam0delk1n/fluent-behaviour-tree.git
-```
 Create `build\mingw\Debug\` and `build\mingw\Release\` in the repo root folder.
 ```bat
-cd fluent-behaviour-tree
 mkdir build\mingw\Debug build\mingw\Release
 ```
 Generate `Makefile` with Debug options and build it. You need CMake 3.10.2 and MinGW-W64 with GCC-7/g++-7.
