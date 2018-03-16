@@ -5,41 +5,94 @@ It's a C++ implementation of Fluent Behaviour Tree from https://github.com/codec
 It's a header-only library so just put `fluent-behaviour-tree.hpp` into your `.cpp` file.
 ```cpp
 #include "include/fluent-behaviour-tree.hpp"
-
-using namespace std;
+```
+FBT has its own namespace.
+```cpp
 using namespace smd::fbt;
-
+```
+Next define what types are using in the code.
+```cpp
 using timeData_t = float;
 using nodePtr_t  = shared_ptr< node_i< timeData_t > >;
 using builder_t  = builder_c< timeData_t >;
-
-...
-
-nodePtr_t tree;
-
-void startup( void ) {
+```
+Do some defines to make our code more clarity.
+```cpp
+#define DO( name, code )        .mDo( name, []( timeData_t ) code )
+#define CONDITION( name, code ) .mCondition( name, []( timeData_t timeData ) code )
+#define SEQUENCE( name )        .mSequence( name )
+#define PARALLEL( name )        .mParallel( name, 0, 0 )
+#define END                     .mEnd()
+#define BUILD                   .mBuild()
+```
+Create FBT with app-logic at startup.
+```cpp
+nodePtr_t startUp( void ) {
     builder_t builder;
-  
-    tree = builder
-        .mSequence( "my-sequence" )
-            .mDo( "action1", []( timeData_t ) {
-                // Action 1.
-                return status_t::SUCCESS;
-            } )
-            .mDo( "action2", []( timeData_t ) {
-                // Action 2.
-                return status_t::SUCCESS;
-            } )
-        .mEnd()
-        .mBuild();
-}
 
-...
+    nodePtr_t pTree {
+        builder
+            SEQUENCE( "My-Sequence" )
+                DO( "Action-1", {
+                    cout << "Do Action-1" << endl;
+                    return status_t::SUCCESS;
+                } )
+                DO( "Action-2", {
+                    cout << "Do Action-2" << endl;
+                    return status_t::SUCCESS;
+                } )
 
-void update( timeData_t time ) {
-    tree.mTick( 0.1f );
+                PARALLEL( "Make Parallel" )
+                    SEQUENCE( "Seq1" )
+                        CONDITION( "Condition-for-Action-3", {
+                            return timeData < 0.2f;
+                        } )
+                        DO( "Action-3", {
+                            cout << "Do Action-3" << endl;
+                            return status_t::SUCCESS;
+                        } )
+                    END
+
+                    SEQUENCE( "Seq2" )
+                        CONDITION( "Condition-for-Action-4", {
+                            return timeData > 0.2f;
+                        } )
+                        DO( "Action-4", {
+                            cout << "Do Action-4" << endl;
+                            return status_t::SUCCESS;
+                        } )
+                    END
+                END
+            END
+            BUILD
+    };
+
+    return pTree;
 }
 ```
+The update function may invokes in the loops or many times when app running.
+```cpp
+void update( nodePtr_t pTree, timeData_t timeData ) {
+    pTree->mTick( timeData );
+}
+```
+In this example we called the update function two times with different arguments. In the main function create the tree and update it.
+```cpp
+nodePtr_t pTree { startUp() };
+
+update( pTree, 0.1f );
+update( pTree, 0.3f );
+```
+The output should be as follows.
+```
+Do Action-1
+Do Action-2
+Do Action-3
+Do Action-1
+Do Action-2
+Do Action-4
+```
+You can see this example in details at `examples/main.cpp`.
 
 ## How to build and run Sanity-check
 ### Clone the repo
