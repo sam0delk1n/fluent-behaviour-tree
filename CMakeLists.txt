@@ -35,10 +35,6 @@ message( "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}" )
 message( "\nCMAKE_C_COMPILER=${CMAKE_C_COMPILER}" )
 message( "CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}\n" )
 
-set( CMAKE_C_STANDARD          11 )
-set( CMAKE_C_STANDARD_REQUIRED ON )
-set( CMAKE_C_EXTENSIONS        OFF )
-
 set( CMAKE_CXX_STANDARD          17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 set( CMAKE_CXX_EXTENSIONS        OFF )
@@ -52,6 +48,9 @@ if( CMAKE_GENERATOR MATCHES "MinGW Makefiles" OR CMAKE_GENERATOR MATCHES "Unix M
 elseif( CMAKE_GENERATOR MATCHES "Visual Studio 15 2017 Win64" )
     add_compile_options( "/W4" )
 endif()
+
+file( GLOB SOURCE "examples/*.cpp" )
+add_executable( "examples" ${SOURCE} )
 
 file( GLOB SOURCE "sanity-check/*.cpp" )
 add_executable( "fbt-check" ${SOURCE} )
